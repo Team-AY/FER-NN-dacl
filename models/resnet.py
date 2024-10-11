@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from torchvision.models.utils import load_state_dict_from_url
+from torch.hub import load_state_dict_from_url
 
 
 __all__ = ['ResNet', 'resnet18', 'resnet34', 'resnet50', 'resnet101',
@@ -242,7 +242,7 @@ def _resnet(arch, block, layers, pretrained, progress, **kwargs):
             state_dict = load_state_dict_from_url(model_urls[arch],
                                                   progress=progress)
         elif pretrained == 'msceleb':
-            msceleb_model = torch.load('/users/amirhf/models/resnet18_msceleb.pth')
+            msceleb_model = torch.load('/content/FER-NN-dacl/models/resnet18_msceleb.pth',map_location=torch.device('cpu'))
             state_dict = msceleb_model['state_dict']
         else:
             raise NotImplementedError('wrong pretrained model!')
